@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Rose Day Turtuu ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb);
+    background-size: 600% 600%;
+    animation: bgAnimation 12s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes bgAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🌹 Falling Rose Petals */
+.petal {
+    position: fixed;
+    top: -30px;
+    font-size: 20px;
+    animation: fall linear infinite;
+    opacity: 0.9;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Main Card */
+#rose {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    padding: 25px 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+/* Heading */
+#rose h1 {
+    color: #b30059;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    animation: glowText 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowText {
+    from { text-shadow: 0 0 6px #ff4d6d; }
+    to { text-shadow: 0 0 16px #ff1a4d; }
+}
+
+/* Rose Image */
+.rose {
+    width: 150px;
+    max-width: 60%;
+    margin: 15px 0;
+    animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* 💌 Reason text (SPACE FIXED) */
+#reason {
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 15px 0;
+    min-height: 60px;
+    white-space: pre-wrap; /* ⭐ FIXES SPACE ISSUE */
+}
+
+/* Button */
+button {
+    background: linear-gradient(45deg, #ff4d6d, #ff758f);
+    border: none;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    #rose h1 { font-size: 1.5rem; }
+    #reason { font-size: 1rem; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Romantic Music -->
+<audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<section id="rose">
+    <h1>🌹 Happy Rose Day, Turtuu 🌹</h1>
+    <img src="assets/rose.png" class="rose" alt="Rose for Turtuu">
+    <p id="reason">Click the button 💖</p>
+    <button onclick="showReason()">Why I Love You</button>
+</section>
+
+<script>
+/* 🌹 Rose petals */
+function createPetal() {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.innerText = "🌹";
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = (Math.random() * 3 + 5) + "s";
+    document.body.appendChild(petal);
+    setTimeout(() => petal.remove(), 9000);
+}
+setInterval(createPetal, 700);
+
+/* 💌 Typing effect + music */
+const reasons = [
+  "Turtuu, you understand me like no one else ❤️",
+  "Your smile fixes my worst days 😊",
+  "You believe in me even when I don’t 🌸",
+  "With you, I feel safe and loved 🤍",
+  "I love you more than words can ever say 💖",
+  "Happy Rose Day, my forever Turtuu 🌹❤️"
+];
+
+let i = 0;
+let musicStarted = false;
+
+function showReason() {
+    const music = document.getElementById("bgMusic");
+    if (!musicStarted) {
+        music.play();
+        musicStarted = true;
+    }
+
+    const text = reasons[i];
+    const reasonEl = document.getElementById("reason");
+    reasonEl.textContent = "";
+    let j = 0;
+
+    const typing = setInterval(() => {
+        reasonEl.textContent += text[j]; // keeps spaces perfect
+        j++;
+        if (j === text.length) clearInterval(typing);
+    }, 45);
+
+    i = (i + 1) % reasons.length;
+}
+</script>
+
+</body>
+</html>
