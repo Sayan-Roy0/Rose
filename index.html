@@ -29,31 +29,44 @@ body {
 .petal {
     position: fixed;
     top: -30px;
-    font-size: 20px;
+    font-size: 22px;
     animation: fall linear infinite;
     opacity: 0.9;
+    z-index: 1;
 }
 
 @keyframes fall {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
 }
 
-/* Main Card */
+/* 💖 Sticker Images */
+.sticker {
+    position: absolute;
+    width: 70px;
+    max-width: 18vw;
+    animation: floatSticker 6s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes floatSticker {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+}
+
+/* 🌸 Main Card */
 #rose {
+    position: relative;
+    z-index: 5;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(12px);
     border-radius: 22px;
     padding: 25px 20px;
     text-align: center;
     width: 90%;
-    max-width: 500px;
+    max-width: 400px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.25);
 }
 
@@ -84,13 +97,13 @@ body {
     100% { transform: scale(1); }
 }
 
-/* 💌 Reason text (SPACE FIXED) */
+/* Text */
 #reason {
     font-size: 1.1rem;
     color: #fff;
     margin: 15px 0;
     min-height: 60px;
-    white-space: pre-wrap; /* ⭐ FIXES SPACE ISSUE */
+    white-space: pre-wrap;
 }
 
 /* Button */
@@ -113,21 +126,72 @@ button:hover {
 /* Mobile */
 @media (max-width: 480px) {
     #rose h1 { font-size: 1.5rem; }
-    #reason { font-size: 1rem; }
+    .sticker { width: 55px; }
+}
+
+/* Sticker base */
+.sticker {
+    position: absolute;
+    width: 340px;
+    max-width: 18vw;
+    animation: floatSticker 6s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes floatSticker {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+}
+
+/* Fixed positions */
+.st1 { top: 8%; left: 10%; }
+.st2 { top: 8%; right: 10%; }
+
+.st3 { top: 40%; left: 2%; }
+.st4 { top: 40%; right: 2%; }
+
+.st5 { bottom: 8%; left: 15%; }
+.st6 { bottom: 8%; right: 15%; }
+
+/* Mobile adjustment */
+@media (max-width: 480px) {
+    .sticker { width: 55px; }
+
+    .st1 { top: 5%; left: 5%; }
+    .st2 { top: 5%; right: 5%; }
+
+    .st3 { top: 38%; left: -5%; }
+    .st4 { top: 38%; right: -5%; }
+
+    .st5 { bottom: 5%; left: 10%; }
+    .st6 { bottom: 5%; right: 10%; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 Romantic Music -->
+<!-- 🎵 Music -->
 <audio id="bgMusic" loop>
     <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- 💖 Stickers -->
+<img src="assets/sticker1.png" class="sticker st1">
+<img src="assets/sticker2.png" class="sticker st2">
+
+<img src="assets/sticker2.png" class="sticker st3">
+<img src="assets/sticker1.png" class="sticker st4">
+
+<img src="assets/sticker1.png" class="sticker st5">
+<img src="assets/sticker2.png" class="sticker st6">
+
+
 <section id="rose">
     <h1>🌹 Happy Rose Day, Turtuu 🌹</h1>
-    <img src="assets/rose.png" class="rose" alt="Rose for Turtuu">
+    <img src="assets/rose.png" class="rose">
     <p id="reason">Click the button 💖 and when a Message is complete, Click it again okay 😘</p>
     <button onclick="showReason()">Why I Love You</button>
 </section>
@@ -145,13 +209,14 @@ function createPetal() {
 }
 setInterval(createPetal, 700);
 
-/* 💌 Typing effect + music */
+
+/* 💌 Typing + music */
 const reasons = [
   "Kumkum, you understand me like no one else ❤️",
   "Your smile fixes my worst days 😊",
-    "Talking to you brings peace to my mind 🤗",
+  "Talking to you brings peace to my mind 🤗",
   "You believe in me even when I don’t 🌸",
-    "You take great care of me 🥰",
+  "You take great care of me 🥰",
   "With you, I feel safe and loved 🤍",
   "I love you more than words can ever say 💖",
   "Happy Rose Day, my forever Turtuu 🌹❤️"
@@ -173,7 +238,7 @@ function showReason() {
     let j = 0;
 
     const typing = setInterval(() => {
-        reasonEl.textContent += text[j]; // keeps spaces perfect
+        reasonEl.textContent += text[j];
         j++;
         if (j === text.length) clearInterval(typing);
     }, 45);
@@ -184,6 +249,7 @@ function showReason() {
 
 </body>
 </html>
+
 
 
 
